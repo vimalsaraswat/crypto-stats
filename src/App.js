@@ -26,17 +26,10 @@ function Search() {
   );
 }
 
-async function Main() {
-  let data = await getData();
-  console.log(data);
+function Main() {
   return (
-    <main>{data.id}</main>
+    <main>Main</main>
   );
-}
-
-async function getData() {
-  let data = await fetch('https://api.coingecko.com/api/v3/search/trending').then((response) => response.json);
-  return data[2];
 }
 
 export default App;
