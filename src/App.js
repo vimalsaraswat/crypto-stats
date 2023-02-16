@@ -1,79 +1,69 @@
 import { useState, useEffect } from "react";
+import Header from "./header";
 
 function App() {
   return (
     <div className="h-screen font-mono text-slate-200 text-center bg-gradient-to-br from-slate-800 to-gray-600">
-      <Header />
+      <Header heading="Crypto Stats" />
       <Main />
+      <Footer />
     </div>
   );
 }
 
-function Header() {
+function Footer() {
   return (
-    <header className="p-4">
-      <h1 className="font-bold text-4xl">
-        Crypto Stats
-      </h1>
-      <Search />
-    </header>
-  );
-}
-
-function Search() {
-  return (
-    <form>
-      <input className="border-black  bg-gradient-to-br from-slate-600 to-gray-600 p-2 border-3 rounded-md my-5" type="text" placeholder="&#x1F50D;Search.." name="search" />
-    </form>
+    <footer className="my-4 bottom-0">
+      <p>Copyright &copy; Vimal</p>
+    </footer>
   );
 }
 
 function Main() {
   return (
-    <main className="bg-slate-400 bg-blend-darken bg-opacity-50 w-10/12 h-3/5 mx-auto rounded-md">
+    <main className="bg-slate-400 bg-blend-darken bg-opacity-50 w-10/12 h-3/5 mx-auto rounded-md overflow-scroll">
       <GetData />
     </main>
   );
 }
 
 function GetData() {
-  const [data, setData] = useState({
-    name:"name",
-    symbol:"symbol",
-    price:0
-  });
+  const [reload, setReload] = useState(0);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     fetch("https://api.coingecko.com/api/v3/search/trending")
       .then((response) => response.json())
-      .then((coin) => setData(
-        {
-          name: coin[2].name,
-          symbol: coin[2].symbol,
-          price: coin[2].price_btc
-        }
-      ));
-  }, []);
+      .then(({ coins }) => {
+        const Coins = coins.map((coin) => coin.item);
+        setData(Coins);
+      });
+  }, [reload]);
 
-  return (
-    <table>
+return (
+  <>
+    <button onClick={() => setReload(reload + 1)}>Refresh {reload}</button>
+
+    <table className="border-collapse border border-green-600">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Symbol</th>
-          <th>Price</th>
+          <th className="border border-green-600">Name</th>
+          <th className="border border-green-600">Symbol</th>
+          <th className="border border-green-600">Price</th>
         </tr>
       </thead>
       <tbody>
+        {data.map((coin) => (
           <tr>
-            <td>{data.name}</td>
-            <td>{data.symbol}</td>
-            <td>{data.price}</td>
+            <td>{coin.name}</td>
+            <td>{coin.symbol}</td>
+            <td>{coin.price_btc}</td>
           </tr>
-      
+        ))}
       </tbody>
     </table>
-  );
+  </>
+);
 }
 
 export default App;
