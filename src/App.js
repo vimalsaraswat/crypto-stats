@@ -3,7 +3,7 @@ import Header from "./header";
 
 function App() {
   return (
-    <div className="h-screen font-mono text-slate-200 text-center bg-gradient-to-br from-slate-800 to-gray-600">
+    <div className="h-screen w-screen overflow-scroll font-mono text-slate-200 text-center bg-gradient-to-br from-slate-800 to-gray-600">
       <Header heading="Crypto Stats" />
       <Main />
       <Footer />
@@ -44,7 +44,7 @@ return (
   <>
     <button onClick={() => setReload(reload + 1)}>Refresh {reload}</button>
 
-    <table className="border-collapse border border-green-600">
+    <table className="mx-auto border-collapse border border-green-600">
       <thead>
         <tr>
           <th className="border border-green-600">Name</th>
