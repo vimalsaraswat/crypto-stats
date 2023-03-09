@@ -40,30 +40,34 @@ function GetData() {
       });
   }, [reload]);
 
-return (
-  <>
-    <button onClick={() => setReload(reload + 1)}>Refresh {reload}</button>
+  return (
+    <>
+      <button onClick={() => setReload(reload + 1)}>Refresh {reload}</button>
 
-    <table className="mx-auto border-collapse border border-green-600">
-      <thead>
-        <tr>
-          <th className="border border-green-600">Name</th>
-          <th className="border border-green-600">Symbol</th>
-          <th className="border border-green-600">Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((coin) => (
+      <table className="mx-auto text-lime-500 border-collapse">
+        <thead>
           <tr>
-            <td>{coin.name}</td>
-            <td>{coin.symbol}</td>
-            <td>{coin.price_btc}</td>
+            <th className="">Image</th>
+            <th className="border border-green-600">Name</th>
+            <th className="border border-green-600">Symbol</th>
+            <th className="border border-green-600">Price</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-  </>
-);
+        </thead>
+        <tbody>
+          {data.map((coin) => (
+            <tr>
+              <td>
+                <img src={coin.large} alt="" className="w-10" />
+              </td>
+              <td>{coin.name}</td>
+              <td>{coin.symbol}</td>
+              <td>{coin.price_btc}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  );
 }
 
 export default App;
